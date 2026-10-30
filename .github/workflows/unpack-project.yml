@@ -10,7 +10,7 @@ jobs:
   extract:
     runs-on: ubuntu-latest
     steps:
-      - name: Download repository files
+      - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Extract project ZIP
@@ -19,12 +19,11 @@ jobs:
           unzip -o VoiceBook-AI-Fresh-Project.zip -d extracted
           cp -R extracted/. .
           rm -rf extracted
-          rm -f VoiceBook-AI-Fresh-Project.zip
 
-      - name: Save extracted project files
+      - name: Save Android project files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -Agit reset -- .github/workflows/build-apk.yml
-          git commit -m "Extract VoiceBook AI Android project" || echo "No changes"
+          git add app README.md build.gradle gradle.properties settings.gradle
+          git commit -m "Add VoiceBook AI Android project"
           git push
