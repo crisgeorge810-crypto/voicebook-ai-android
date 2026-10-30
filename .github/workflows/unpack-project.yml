@@ -1,0 +1,30 @@
+name: Extract VoiceBook AI Project
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repository files
+        uses: actions/checkout@v4
+
+      - name: Extract project ZIP
+        run: |
+          mkdir extracted
+          unzip -o VoiceBook-AI-Fresh-Project.zip -d extracted
+          cp -R extracted/. .
+          rm -rf extracted
+          rm -f VoiceBook-AI-Fresh-Project.zip
+
+      - name: Save extracted project files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract VoiceBook AI Android project" || echo "No changes"
+          git push
