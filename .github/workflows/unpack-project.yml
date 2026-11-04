@@ -16,7 +16,7 @@ jobs:
       - name: Extract project ZIP
         run: |
           mkdir extracted
-          unzip -o VoiceBook-AI-Fresh-Project.zip -d extracted
+          unzip -o VoiceBook-AI-Android-Update.zip -d extracted
           cp -R extracted/. .
           rm -rf extracted
 
@@ -25,5 +25,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add app README.md build.gradle gradle.properties settings.gradle
-          git commit -m "Add VoiceBook AI Android project"
+          git commit -m "Apply VoiceBook AI Android update"
           git push
