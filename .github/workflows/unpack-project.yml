@@ -1,3 +1,4 @@
+
 name: Extract VoiceBook AI Project
 
 on:
@@ -20,10 +21,21 @@ jobs:
           cp -R extracted/. .
           rm -rf extracted
 
+      - name: Apply colourful VoiceBook AI logo
+        run: |
+          mkdir logo_update
+          unzip -o VoiceBook-AI-Logo-Update.zip -d logo_update
+          cp -R logo_update/app/src/main/res/mipmap-* app/src/main/res/
+          rm -rf logo_update
+
+      - name: Point app to new logo
+        run: |
+          sed -i 's|android:icon="@drawable/ic_launcher"|android:icon="@mipmap/ic_launcher"|' app/src/main/AndroidManifest.xml
+
       - name: Save Android project files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add app README.md build.gradle gradle.properties settings.gradle
-          git commit -m "Apply VoiceBook AI Android update"
+          git commit -m "Apply VoiceBook AI update and colourful logo"
           git push
