@@ -1,13 +1,17 @@
-# VoiceBook AI
+# VoiceBook AI — Android source
 
-Android speech-to-notes starter app. Features include speech recognition, typed notes, local topic-labelled note saving, a spoken “New topic” / “New topic [name]” command, audio recording and playback of the latest recording.
+This update adds an Android foreground microphone service so audio capture is independent of the Activity and speech recognition screen. Recordings are saved as separate timestamped `.m4a` files under the app's private `recordings` folder, tagged with the topic name in the filename. The most recently completed recording is stored in the `voicebook` preferences as `last_audio` for the existing playback control.
 
-## Build using GitHub Actions on your phone
-1. Download and extract this ZIP on your phone.
-2. Upload the **contents** (folders and files), not the ZIP itself, to the root of `crisgeorge810-crypto/voicebook-ai-android`.
-3. Commit to `main`.
-4. Open the repository's **Actions** tab. Choose **Build VoiceBook AI APK** and tap **Run workflow** if it has not started automatically.
-5. When the run succeeds, open it and download artifact **VoiceBook-AI-APK**.
-6. Extract that downloaded artifact ZIP and install `app-debug.apk`.
+## Build
 
-Speech recognition uses the phone's installed Android recognition service; offline support depends on that service. Notes and the latest recording are stored locally on the phone. This is a starter build, not yet a Play Store release.
+Use the repository's GitHub Actions workflow **Build VoiceBook AI APK**.
+
+## Important test notes
+
+- Start recording while the app is visible. Android requires microphone foreground-service start to originate from a visible user action.
+- A persistent notification appears with a Stop action while recording.
+- Speech recognition is still a separate feature. A speech-recognition error should not stop the recording service.
+- Test long recordings on the actual phone, check available storage, lock the screen, switch apps, then stop from the app or notification.
+- This is an early reliability update, not a verified six-hour recording guarantee. Device battery policies, storage, microphone hardware and Android vendor restrictions can affect long sessions.
+- The current playback UI still plays the latest completed recording. Per-topic recording library, seek/pause controls, cloud accounts, email verification, subscriptions and payments are not implemented in this update.
+- Clear distant-speaker capture requires a suitable external wireless microphone or a feed from the church sound system; software cannot overcome arbitrary microphone distance.
